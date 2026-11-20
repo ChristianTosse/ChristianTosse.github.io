@@ -64,7 +64,7 @@ body {
   line-height: 1.6;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
-  padding-block: 20px 56px;
+  padding-block: 12px 56px;
 }
 h1, h2, h3, h4, p, ul, ol, dl, dd { margin: 0; }
 a { color: inherit; }
@@ -80,7 +80,7 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 .top nav a:hover { color: var(--accent); }
 
 /* en-tête */
-.hero { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr); gap: clamp(28px, 5vw, 64px); align-items: center; margin-top: clamp(28px, 5vw, 56px); }
+.hero { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr); gap: clamp(28px, 5vw, 64px); align-items: center; margin-top: calc(clamp(56px, 8vw, 104px) * -0.4); }
 .eyebrow { font-family: var(--f-mono); font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
 h1 { font-family: var(--f-display); font-weight: 800; font-size: clamp(2.7rem, 7.4vw, 5.2rem); line-height: 0.98; letter-spacing: -0.025em; margin-top: 14px; text-wrap: balance; }
 .pitch { font-size: clamp(1.08rem, 2vw, 1.25rem); max-width: 34em; margin-top: 22px; color: var(--fg); }
@@ -131,6 +131,10 @@ h2 { font-family: var(--f-display); font-weight: 700; font-size: clamp(1.9rem, 4
 .card h4 { font-family: var(--f-display); font-weight: 700; font-size: 1.15rem; line-height: 1.25; }
 .card p { font-size: 0.97rem; line-height: 1.55; color: var(--fg); }
 .card .tags { margin-top: auto; padding-top: 6px; }
+.card .repo { font-family: var(--f-mono); font-size: 0.8rem; color: var(--accent); text-decoration: none; overflow-wrap: anywhere; }
+.card .repo::after { content: " \2197"; }
+.card .repo:hover { text-decoration: underline; }
+.card .repos { display: flex; flex-wrap: wrap; gap: 4px 18px; }
 .card .tags li { background: var(--bg); }
 .st { display: inline-flex; align-items: center; gap: 8px; font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-dim); }
 .st::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--c); border: 2px solid var(--c); }
@@ -247,7 +251,8 @@ h2 { font-family: var(--f-display); font-weight: 700; font-size: clamp(1.9rem, 4
     <div>
       <p class="eyebrow">Mathématiques appliquées · Science des données</p>
       <h1>Christian TOSSE</h1>
-      <p class="pitch">Master 2 Data Mathematics à Sorbonne Paris Nord, après un Master en Statistique et Probabilité à l'IMSP (Université d'Abomey-Calavi). Statisticien consultant freelance.</p>
+      <p class="pitch">Master 2 Data Mathematics à Sorbonne Paris Nord, après un Master en Statistique et Probabilité à l'IMSP (Université d'Abomey-Calavi).</p>
+      <p class="pitch">Ce qui m'anime en recherche : comprendre pourquoi une méthode statistique fonctionne, en démontrer les garanties, puis la confronter à des données réelles, de la santé à l'économie.</p>
       <ul class="chips">
         <li class="chip strong">M2 Data Mathematics, Sorbonne Paris Nord</li>
         <li class="chip">Bourse EUR M&amp;CS</li>
@@ -368,12 +373,14 @@ h2 { font-family: var(--f-display); font-weight: 700; font-size: clamp(1.9rem, 4
               <li>Prix d'options européennes estimés par Monte Carlo et validés par la formule de Black-Scholes (écart inférieur à 0,5 %).</li>
               <li>Étude de la convergence de l'estimateur et des limites du modèle.</li>
             </ul>
+            <a class="repo" href="https://github.com/ChristianTosse/simulation-stochastique-pricing" target="_blank" rel="noopener">Dépôt GitHub</a>
             <ul class="tags"><li>R</li><li>Monte Carlo</li><li>Black-Scholes</li></ul>
           </article>
           <article class="card">
             <span class="st ok">Soutenu, mention bien</span>
             <h4>Mémoire de Master 2 sur les forêts aléatoires</h4>
             <p>Étude de la vitesse de convergence des forêts aléatoires pour la classification, à partir de Gao, Xu et Zhou (2022). Cinq chapitres, de la construction des forêts à l'extension multiclasse, avec démonstrations complètes rédigées en LaTeX. Accompagné de documents pédagogiques et de deux présentations.</p>
+            <a class="repo" href="https://github.com/ChristianTosse/memoire-forets-aleatoires" target="_blank" rel="noopener">Dépôt GitHub</a>
             <ul class="tags"><li>Forêts aléatoires</li><li>Théorie statistique</li><li>LaTeX</li></ul>
           </article>
         </div>
@@ -384,9 +391,27 @@ h2 { font-family: var(--f-display); font-weight: 700; font-size: clamp(1.9rem, 4
         <div class="cards">
           <article class="card">
             <span class="st ok">Terminé</span>
-            <h4>Analyse de survie</h4>
-            <p>Document scientifique complet sur la conception d'études longitudinales, les données censurées, l'estimateur de Kaplan-Meier et le modèle de Cox.</p>
-            <ul class="tags"><li>Kaplan-Meier</li><li>Cox</li></ul>
+            <h4>Taxes sur la bière et mortalité routière</h4>
+            <p class="meta">Données de panel · 2026</p>
+            <ul class="pts">
+              <li>48 États américains de 1982 à 1988 (jeu de données Fatalities).</li>
+              <li>Les comparaisons entre États donnent un effet positif de la taxe, dû à l'hétérogénéité non observée ; les effets fixes inversent le signe (−0,66 décès pour 10 000 habitants par dollar de taxe).</li>
+              <li>Test de Hausman, écarts-types robustes par grappe et modèle mixte en complément.</li>
+            </ul>
+            <p class="repos"><a class="repo" href="https://github.com/ChristianTosse/panel-fatalities-alcool" target="_blank" rel="noopener">Dépôt GitHub</a><a class="repo" href="https://christiantosse.github.io/projets/fatalities/" target="_blank" rel="noopener">Rapport</a></p>
+            <ul class="tags"><li>R</li><li>plm</li><li>Effets fixes</li><li>Hausman</li></ul>
+          </article>
+          <article class="card">
+            <span class="st ok">Terminé</span>
+            <h4>Décès par maladies pulmonaires au Royaume-Uni</h4>
+            <p class="meta">Séries temporelles · 2026</p>
+            <ul class="pts">
+              <li>Série mensuelle ldeaths (1974-1979) : distinguer une hausse anormale des décès de la saisonnalité attendue.</li>
+              <li>Modèle retenu : régression harmonique à erreurs AR(2), environ 40 % d'erreur de prévision en moins que la référence saisonnière.</li>
+              <li>Modèle de Serfling et seuil épidémique à 95 % : trois alertes, dont l'hiver 1975-1976.</li>
+            </ul>
+            <p class="repos"><a class="repo" href="https://github.com/ChristianTosse/series-temporelles-ldeaths" target="_blank" rel="noopener">Dépôt GitHub</a><a class="repo" href="https://christiantosse.github.io/projets/ldeaths/" target="_blank" rel="noopener">Rapport</a></p>
+            <ul class="tags"><li>R</li><li>SARIMA</li><li>Serfling</li></ul>
           </article>
           <article class="card">
             <span class="st run">En finalisation</span>
@@ -400,18 +425,6 @@ h2 { font-family: var(--f-display); font-weight: 700; font-size: clamp(1.9rem, 4
             <p>Premier de trois projets de portfolio en santé : modèle de Cox, risques concurrents et Cox-lasso.</p>
             <ul class="tags"><li>Cox</li><li>Risques concurrents</li><li>Lasso</li></ul>
           </article>
-          <article class="card">
-            <span class="st plan">Planifié</span>
-            <h4>Enquêtes DHS du Bénin</h4>
-            <p>Cinq projets, un par fichier de l'EDSB-V 2017-18, autour des plans de sondage complexes, des effets de plan et de la régression logistique avec le package survey.</p>
-            <ul class="tags"><li>survey</li><li>gtsummary</li><li>ggplot2</li></ul>
-          </article>
-          <article class="card">
-            <span class="st plan">Planifié</span>
-            <h4>Mortalité infantile en Afrique de l'Ouest</h4>
-            <p>Projet de recherche empirique de quatre semaines sur l'accès aux soins au Bénin, au Ghana et au Sénégal : MCO, probit et logit, variables instrumentales, rédaction d'un article.</p>
-            <ul class="tags"><li>Économétrie</li><li>Données DHS</li></ul>
-          </article>
         </div>
       </div>
 
@@ -423,12 +436,6 @@ h2 { font-family: var(--f-display); font-weight: 700; font-size: clamp(1.9rem, 4
             <h4>Guide des méthodes de sondage</h4>
             <p>Guide HTML des neuf méthodes, cinq probabilistes et quatre empiriques, avec un cours détaillé et des cas pratiques de plans de sondage situés au Bénin.</p>
             <ul class="tags"><li>Sondages</li><li>HTML</li></ul>
-          </article>
-          <article class="card">
-            <span class="st ok">Terminé</span>
-            <h4>Carte des modèles par secteur</h4>
-            <p>Outil interactif qui relie les modèles statistiques aux métiers : finance, santé publique, industrie, ONG, télécoms, agriculture, éducation, administration.</p>
-            <ul class="tags"><li>Visualisation interactive</li></ul>
           </article>
           <article class="card">
             <span class="st run">En cours</span>
